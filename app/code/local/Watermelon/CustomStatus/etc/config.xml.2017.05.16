@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Watermelon_CustomStatus>
+      <version>0.1.0</version>
+    </Watermelon_CustomStatus>
+  </modules>
+  <global>
+  <sales>
+	<order>
+	  <statuses>
+		<backordered translate="label"><label>Backordered</label></backordered>
+	  </statuses>
+	  <states>
+		<pending_payment>
+		  <statuses>
+			<backordered />
+		  </statuses>
+		</pending_payment>
+	  </states>
+	</order>
+ </sales>
+    <helpers>
+      <customstatus>
+        <class>Watermelon_CustomStatus_Helper</class>
+      </customstatus>
+    </helpers>
+	<models>
+	  <customstatus>
+		<class>Watermelon_CustomStatus_Model</class>
+		<resourceModel>customstatus_mysql4</resourceModel>
+	  </customstatus>
+	</models>
+    <events>
+	  <sales_order_place_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <sales_order_place_after_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>customstatus/observer</class> <!-- observers class alias -->
+            <method>afterOrderPlaced</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </sales_order_place_after_handler>
+        </observers>
+      </sales_order_place_after>
+    </events>
+  </global>
+<stores>
+    <admin>
+      <design>
+        <package>
+          <name>default</name>
+        </package>
+        <theme>
+          <default>watermelon</default>
+        </theme>
+      </design>
+    </admin>
+  </stores>  
+</config> 
